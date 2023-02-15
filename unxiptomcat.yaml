@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  
+  tasks:
+    - name: unzip tomcat
+      unarchive:
+            src: /home/ec2-user/apache-tomcat-9.0.71.tar.gz
+            dest: /home/ec2-user
+            remote_src: true

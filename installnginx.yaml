@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: yes
+  order: reverse_inventory
+
+  vars:
+    package: nginx
+
+  tasks:
+    - name: install nginx
+      yum:
+       name: "{{ package }}"
+       state: present
+       
+
+    - name: start nginx
+      service:
+        name: "{{ package }}"
+        state: restarted
+      notify: restart nginx
+
+  handlers:
+     - name: restart nginx
+       service:
+         name: "{{ package }}"
+         state: restarted

@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  
+  tasks:
+    - name: install java
+      yum:
+        name: java-1.8.0-openjdk
+        state: present
+      when: ansible_facts['os_family'] == "RHEL"
+
+    - name: insatll jenkins
+      get_url:
+          url: https://updates.jenkins.io/download/war/2.391/jenkins.war
+          dest: /home/ec2-user/apache-tomcat-9.0.71/webapps
